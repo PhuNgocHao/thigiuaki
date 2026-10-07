@@ -1,0 +1,12 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Book } from './book.entity.js';
+
+@Injectable()
+export class BooksService {
+  constructor(@InjectRepository(Book) private repo: Repository<Book>) {}
+
+  create(data: Partial<Book>) { return this.repo.save(this.repo.create(data)); }
+  findAll() { return this.repo.find(); }
+}
